@@ -9,72 +9,18 @@ from matplotlib import pyplot as plt
 import pytesseract
 
 img = cv2.imread(sys.argv[1], 0)
-# w, h = template.shape[::-1]
 
 # img = img[1412:1412+308, 572:572+241]
-
-# ret, img = cv2.threshold(img,210,250,cv2.THRESH_TRUNC)
 
 cells_w = 14
 cells_h = 18
 
-# kernel = np.ones((3,3),np.uint8)
-# opening = cv2.morphologyEx(img,cv2.MORPH_OPEN,kernel)
-
-# plt.imshow(img, cmap='gray'),plt.show()
-# plt.imshow(opening, cmap='gray'),plt.show()
-
 img = cv2.resize(img, (math.floor(img.shape[1] * 2), math.floor(img.shape[0] * 2)), cv2.INTER_CUBIC);
 
-def apply_threshold(img, level):
-    # ret, img = cv2.threshold(img,level,255,cv2.THRESH_BINARY)
-
-    # ret, img = cv2.threshold(img,210,255,cv2.THRESH_TRUNC)
-
-    # img = cv2.blur(img,(3,3))
-
-    kernel = np.ones((5,5),np.uint8)
-    img = cv2.morphologyEx(img,cv2.MORPH_OPEN,kernel)
-    kernel = np.ones((3,3),np.uint8)
-    img = cv2.morphologyEx(img,cv2.MORPH_CLOSE,kernel)
-
-    # img = cv2.resize(img, (math.floor(img.shape[1] * 0.5), math.floor(img.shape[0] * 0.5)), cv2.INTER_CUBIC);
-    return img
-
-# img = apply_threshold(img, 155)
 plt.imshow(img, cmap='gray'),plt.show()
-
-# def nothing(x):
-#     pass
-
-# cv2.namedWindow('image')
-
-# # create trackbars for color change
-# cv2.createTrackbar('R','image',0,255,nothing)
-# cv2.createTrackbar('G','image',0,255,nothing)
-# cv2.setTrackbarPos('R','image', 178)
-
-# while(1):
-#     # get current positions of four trackbars
-#     a = cv2.getTrackbarPos('R','image')
-#     b = cv2.getTrackbarPos('G','image')
-
-#     img2 = apply_threshold(img)
-#     # print(a, b)
-
-#     cv2.imshow('image',img2)
-#     k = cv2.waitKey(1) & 0xFF
-#     if k == 27:
-#         break
-
-# cv2.destroyAllWindows()
-# sys.exit()
 
 cell_w = img.shape[1] / cells_w
 cell_h = img.shape[0] / cells_h
-
-
-print(img.shape, cell_w, cell_h)
 
 output = [[{'type': 'unknown'} for x in range(cells_w)] for y in range(cells_h)]
 
@@ -111,8 +57,6 @@ for cell_y in range(0, cells_h):
             # cv2.drawContours(cell, contours, -1, (0,255,0), 3)
             # plt.imshow(cell, cmap='gray'),plt.show()
             # plt.imshow(output[cell_y][cell_x]['cropped'], cmap='gray'),plt.show()
-
-# sys.exit()
 
 lines = [];
 
