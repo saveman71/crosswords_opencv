@@ -70,7 +70,6 @@ current = []
 for cell_x in range(0, cells_w):
     for cell_y in range(0, cells_h):
         if output[cell_y][cell_x]['type'] == 'text':
-            # print(output[cell_y][cell_x]['data'].shape)
             current.append(output[cell_y][cell_x])
         else:
             if len(current) > 1:
@@ -92,9 +91,6 @@ for cell_y in range(0, cells_h):
     if len(current) > 1:
         lines.append(current)
     current = []
-
-
-# print(lines)
 
 
 for line in lines:
@@ -124,7 +120,8 @@ for line in lines:
     # plt.imshow(final_image, cmap='gray'),plt.show()
     # plt.imshow(line_img, cmap='gray'),plt.show()
 
-    config = ("-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ -l fra --oem 0 --psm 8")
+    config = ("-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ -c tessedit_enable_doc_dict=0 --oem 0 --psm 8")
+    # config = ("-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ -l fra --oem 0 --psm 8")
     text = pytesseract.image_to_string(line_img, config=config)
     text2 = pytesseract.image_to_string(final_image, config=config)
     ambiguous = text != text2
